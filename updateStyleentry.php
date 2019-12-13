@@ -1,0 +1,141 @@
+<?php
+
+session_start();
+if(!isset($_SESSION['uname']))
+{
+  header('location:Log_in.php');
+}
+         
+?>
+
+<?php
+include("merchandising.php");
+include("dbcon.php");
+if($_GET['id']) {
+    $id = $_GET['id'];
+ 
+    $sql="SELECT * FROM styleentry 
+          WHERE order_id = '$id'";
+    $result = mysqli_query($con,$sql);
+ 
+    $data  = mysqli_fetch_assoc($result);
+ 
+?>
+
+
+<b><h2 style="text-align: center">Style Entry</h2></b>
+<form action="updateStyleentryCode.php" method="POST" enctype="multipart/form-data">
+
+<div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="orderId"><b>Order ID</b></label>
+      <input type="text" class="form-control" id="orderId" name="orderId" value="<?php echo $data['order_id']?>" readonly="">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="buyerName"><b>Buyer Name</b></label>
+      <input type="text" class="form-control" id="buyerName" name="buyerName" value="<?php echo $data['buyer_name']?>">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="deliveryDate"><b>Delivery Date</b></label>
+      <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" value="<?php echo $data['delivery_date']?>">
+    </div>
+
+</div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="styleNo"><b>Style No</b></label>
+      <input type="text" class="form-control" id="styleNo" name="styleNo" value="<?php echo $data['style_no']?>">
+    </div>
+    <div class="form-group col-md-4">
+                <label for="styleName"><b>Style Name</b></label>
+                <input type="text" class="form-control" id="styleName" name="styleName" value="<?php echo $data['style_name']?>">
+            </div>
+
+    <div class="form-group col-md-4">
+      <label for="image1"><b>Style Model</b></label>
+      <ul class="list-group">
+                        <li class="list-group-item">
+                            <input type="file" name="image1" accept="image/*"  value="<?php echo $data['style_model']?>">
+                        </li>
+                    </ul>
+    </div>
+
+   
+  </div>
+  <div class="form-row">
+            
+            <div class="form-group col-md-4">
+            <label for="itemDescription"><b>Description</b></label>
+            <input type="text" class="form-control" id="itemDescription" name="itemDescription" value="<?php echo $data['description']?>">
+            </div>
+            <div class="form-group col-md-4">
+            <label for="approximateQuantity"><b>Approximate Quantity</b></label>
+            <input type="text" class="form-control" id="approximateQuantity" name="approximateQuantity" value="<?php echo $data['approximate_quantity']?>">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="entryDate"><b>Entry Date</b></label>
+              <input type="date" class="form-control" id="entryDate" name="entryDate" value="<?php echo $data['entry_date']?>">
+           </div>
+  </div>
+   <!--size details-->
+  <h4 style="text-align:left">Size-Breakdown</h4>
+  <div class="form-row">
+  
+  <table class="table table-bordered col-6">
+                    <thead class="thead-dark"> 
+                    <tr>
+                        <th>Size Name</th>
+                        <th>Qunatity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>XSS</td>
+                        <td><input type="text" class="form-control" name="xss" value="<?php echo $data['xss']?>"></td>
+                        </tr>
+                        <tr>
+                        <td>XS</td>
+                        <td><input type="text" class="form-control" name="xs" value="<?php echo $data['xs']?>"></td>
+                        </tr>
+                        <tr>
+                        <td>S</td>
+                        <td><input type="text" class="form-control" name="s" value="<?php echo $data['s']?>"></td>
+                        </tr>
+                        <tr>
+                        <td>M</td>
+                        <td><input type="text" class="form-control" name="m" value="<?php echo $data['m']?>"></td>
+                        </tr>
+                        <tr>
+                        <td>L</td>
+                        <td><input type="text" class="form-control" name="l" value="<?php echo $data['l']?>"></td>
+                        </tr>
+                        <tr>
+                        <td>XL</td>
+                        <td><input type="text" class="form-control" name="xl" value="<?php echo $data['xl']?>"></td>
+                        </tr>
+                        <tr>
+                        <td>XLL</td>
+                        <td><input type="text" class="form-control" name="xll" value="<?php echo $data['xll']?>"></td>
+                        </tr>
+                    
+                    </tbody>
+                </table>
+                </div>
+
+             <div class="form-row">
+                <div class="col-md-4"></div>
+                <input id="save_btn" type="submit" class="col-md-2 btn btn-success" value="Update Style Entry">
+            </div>
+
+        </form>
+        <br>
+
+<?php
+include("merchandising2.php");
+}
+?>
+
+
+
+
